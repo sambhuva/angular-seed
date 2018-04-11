@@ -11,11 +11,13 @@ module.exports = function(config) {
       'components/**/*.js',
       'view*/**/*.js'
     ],
-
+    preprocessors: {
+	  '{view1,view2,components}/**/*.js' : ['coverage']
+    },
     autoWatch: true,
 
     frameworks: ['jasmine'],
-
+    reporters: ['progress','junit','coverage'],
     browsers: ['Chrome'],
 
     plugins: [
@@ -28,6 +30,14 @@ module.exports = function(config) {
     junitReporter: {
       outputFile: 'test_out/unit.xml',
       suite: 'unit'
+    },
+    
+    coverageReporter: {
+      dir : 'coverage/',
+      reporters: [
+        { type: 'html', subdir: 'report-html'},
+        { type: 'cobertura', subdir: '.', file: 'cobertura.xml' }
+      ]
     }
 
   });
